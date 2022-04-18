@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-sm text-center">
+    <img class="img-fluid event_logo" src="{% static 'img/logo_scyfest.png' %}" alt="Logo Evento" >
+
+    <div class="card mb-3" style="margin-left:auto; margin-right:auto; margin-top:1em; max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="{% static 'img/perfil_defecto.png' %}" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">Nombre</h5>
+              <p class="card-text">Actualmente tienes 10 puntos</p>
+              <h5 class="text-info">10 puntos</h5>
+              <p class="card-text"><small class="text-muted">Ver histórico</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card text-center">
+        <div class="card-header">
+          Votaciones
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Actualmente no hay votaciones abiertas</h5>
+          <p class="card-text">Las votaciones se abrirán cuando acaben todas las bandas de tocar.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Vota a tu grupo favorito!</h5>
+            <input type="radio" class="btn-check" name="options-outlined" id="vote-option1" autocomplete="off">
+            <label class="btn btn-outline-primary" for="vote-option1">
+                <img src="{% static 'img/perfil_defecto.png' %}" style="height: 4em;" class="img-fluid rounded-start" alt="...">
+                   Grupo 1
+            </label>
+
+            
+
+            <input type="radio" class="btn-check" name="options-outlined" id="vote-option2" autocomplete="off">
+            <label class="btn btn-outline-primary" for="vote-option2">
+                <img src="{% static 'img/perfil_defecto.png' %}" style="height: 4em;" class="img-fluid rounded-start" alt="...">
+                   Grupo 2
+            </label>
+
+            <input type="radio" class="btn-check" name="options-outlined" id="vote-option3" autocomplete="off">
+            <label class="btn btn-outline-primary" for="vote-option3">
+                <img src="{% static 'img/perfil_defecto.png' %}" style="height: 4em;" class="img-fluid rounded-start" alt="...">
+                   Grupo 3
+            </label>
+            <p></p>
+            <a href="#" class="btn btn-primary">Vota!</a>
+          </div>
+      </div>
+
+
+
+
+<footer class=" align-items-center py-3 my-4 border-top text-center">
+    <img class="img-fluid event_logo" src="{% static 'img/logo_scy.png' %}" alt="Logo Evento" >
+    <p></p>
+    <img class="img-fluid event_logo" src="{% static 'img/banner_logos.png' %}" alt="Logo Evento" >
+  </footer>
+
+</div>
+
+{% endblock content %}
+
+{% block customcss %}
+<style>
+    body {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-color: #FFF18D;
+      }
+    .container-sm{
+        padding: 15px;
+        background-color: #FFFFFF99;
+        border-radius: 1em;
+    }
+
+    .event_logo{
+        height : 100%;
+    }
+
+    @media (min-width: 768px) {
+        
+        .event_logo{
+            height : 5em;
+        } 
+    }
+
+</style>
+<!---<link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
+
+
+{% endblock customcss %}
