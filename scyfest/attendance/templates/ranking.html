@@ -2,16 +2,13 @@
 {% load static %}
 
 {% block content %}
-<div class="d-md-flex h-md-100 align-items-center">
+<div class="d-md-flex h-md-100 align-items-center bg-fest">
 
   <!-- First Half -->
 
-  <div class="col-md-6 p-0 bg-indigo h-md-100">
+  <div class="col-md-6 p-0 h-md-100 ranking">
+    <img src="{% static 'img/ranking/left_title.png' %}" class="ranking-title">
     <div class=" align-items-center h-100 p-5 text-center justify-content-center">
-      <div class="container"  >
-      <h1 class="display-4"> Ranking de puntos </h1>
-        <br>
-    </div>
         <div class="container">
           <ul class="list-group" id="cuerpo">
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -34,54 +31,10 @@
 
   <!-- Second Half -->
 
-  <div class="col-md-6 p-0 bg-white h-md-100 loginarea">
-    <div class="align-items-center h-md-100 p-5 justify-content-center">
-      <div class="container">
-        <div class="container container-fluid text-center">
-          <img class="mb-4 rounded mx-auto d-block" src="{% static 'img/logo_scyfest.png' %}" alt="Logo Evento"  height="100">
-        <h1 class="display-4">Tabla de puntos</h1>
-        <p class="lead">Aquí tienes todas las cosas que puedes canjear por tus puntos</p>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">Numero de puntos</th>
-              <th scope="col">Item</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">1 punto</th>
-              <td>Chupito</td>
-            </tr>
-            <tr>
-              <th scope="row">2 puntos</th>
-              <td>Palomitas</td>
-            </tr>
-            <tr>
-              <th scope="row">2 puntos</th>
-              <td>Alpiste</td>
-            </tr>
-
-            <tr>
-              <th scope="row">4 puntos</th>
-              <td>Tercio/Refresco/Rebujito + palomitas</td>
-            </tr>
-
-            <tr>
-              <th scope="row">5 puntos</th>
-              <td>Trozo de pizza</td>
-            </tr>
-
-            <tr>
-              <th scope="row">6 puntos</th>
-              <td>Mojito</td>
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
-      </div>
-    </div>
+  <div class="col-md-6 p-0 h-md-100 points-container">
+    <img src="{% static 'img/ranking/right_top.png' %}" class="points points-top">
+    <img src="{% static 'img/ranking/right_center.png' %}" class="points points-middle">
+    <img src="{% static 'img/ranking/right_bottom.png' %}" class="points points-bottom">
   </div>
 
 </div>
@@ -134,6 +87,10 @@ var interval = window.setInterval(recargar, 15000);
 {% block customcss %}
 <link rel="stylesheet" href="{% static 'login.css' %}">
 <style>
+  body {
+    overflow: hidden; /* Hide scrollbars */
+  }
+
   @media (min-width: 768px) {
     .h-md-100 {
       height: 100vh;
@@ -141,12 +98,30 @@ var interval = window.setInterval(recargar, 15000);
     }
   }
 
-  .btn-round {
-    border-radius: 30px;
+  .ranking {
+    padding: 0 10vh!important;
+  }
+  .points {
+    width: 100%;
   }
 
-  .bg-indigo {
-    background: #FFF18D;
+  .ranking-title {
+    width: 100%;
+    padding-top: 10vh;
+  }
+
+  .points-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .points-bottom {
+    margin-bottom: 10vh;
+  }
+
+  .btn-round {
+    border-radius: 30px;
   }
 
   .text-cyan {
@@ -155,6 +130,15 @@ var interval = window.setInterval(recargar, 15000);
   .badge {
     font-size: 100%;
     color: black;
+  }
+
+  .bg-fest {
+    background-color: #ebe48b;
+  }
+
+  .list-group-item {
+    margin: 6px 0;
+    border: none;
   }
 </style>
 

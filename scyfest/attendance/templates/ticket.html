@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<div class="d-md-flex h-md-100 align-items-center bg-fest">
+    <img src="{% static 'img/home/header.png' %}" class="fest-header">
+
     <div class="container-sm text-center">
-        <img class="img-fluid event_logo"
-             src="{% static 'img/logo_scyfest.png' %}"
-             alt="Logo Evento">
         <div class="card mb-3"
              style="margin-left:auto;
                     margin-right:auto;
@@ -12,7 +12,7 @@
                     max-width: 540px;">
             <div class="row g-0">
                 <div class="col-md-4">
-                    <div class="overlay has-bg-img rounded h-10rem my-2">
+                    <div class="overlay has-bg-img rounded h-10rem my-2 mt-3">
                         <img src="{% static 'img/perfil_defecto.png' %}"
                              id="profile-img"
                              class="bg-img img-fluid rounded-start "
@@ -28,21 +28,18 @@
                     <div class="card-body">
                         <h5 class="card-title" id="nameLabel">
                             <span id="nameLabelText">{{ ticket.name }}</span>
-                            <img id="editNameIcon" src="{% static 'img/edit-solid.svg' %}">
+                            <img id="editNameIcon" src="{% static 'img/edit-solid.svg' %}" class="edit-icon">
                         </h5>
                         <h5 class="card-title">
                             <input type="text" class="form-control" id="nameInput"/>
                         </h5>
-                        <p class="card-text">
-                            Actualmente tienes {{ticket.get_points}} puntos
+                        <p class="card-text fest-points-pre mb-0 mt-4">
+                            Actualmente tienes
                         </p>
-                        <h5 class="text-info">
+                        <h5 class="text-info fest-points mt-0">
                             {{ticket.get_points}} puntos <i class="fa-solid fa-pen-to-square"></i>
                         </h5>
-                        <p class="card-text">
-                            <a href="{% url "ticket_history" ticket.qr_text %}"><small class="text-muted">Ver histórico</small></a>
-                        </p>
-                        <a href="#" class="btn btn-primary">Ayuda</a>
+                        <a href="{% url "ticket_history" ticket.qr_text %}" class="btn btn-primary mt-3 mb-3">VER HISTÓRICO</a>
                     </div>
                 </div>
             </div>
@@ -60,7 +57,7 @@
                     </div>
                 {% else %}
                     <div class="card-body">
-                        <h5 class="card-title">Vota a tu grupo favorito!</h5>
+                        <h5 class="card-title">¡Vota a tu grupo favorito!</h5>
                         <form method="POST" action="{% url 'vote_post' poll.id %}">
                             {% for value, label in form.options.field.choices %}
                                 <div class="form-check">
@@ -68,8 +65,8 @@
               <input class="form-check-input" type="checkbox" value="{{ value }}" name="options">
               {{label}}
                                     </label> {% endcomment %}
-                                    <input type="radio" class="btn-check" name="options" id="vote-option{{ forloop.counter }}" value={{ value }} autocomplete="off">
-                                    <label class="btn btn-outline-primary" for="vote-option{{ forloop.counter }}">
+                                    <input type="radio" name="options" id="vote-option{{ forloop.counter }}" value={{ value }} autocomplete="off">
+                                    <label for="vote-option{{ forloop.counter }}">
                                         {% comment %} {% if option_pictures.value %}
                         <img src="{{option_pictures.value.url}}" style="height: 4em;" class="img-fluid rounded-start" alt="...">
                             {% else %}
@@ -83,9 +80,9 @@
                             {% endfor %}
                             {% csrf_token %}
                             <button type="button"
-                                    class="btn btn-primary"
+                                    class="btn btn-primary mt-3"
                                     data-bs-toggle="modal"
-                                    data-bs-target="#confirmModal">Vota!</button>
+                                    data-bs-target="#confirmModal">¡VOTA!</button>
                             <div class="modal fade"
                                  id="confirmModal"
                                  tabindex="-1"
@@ -119,32 +116,29 @@
                     </div>
                 {% endif %}
             </div>
-            <footer class=" align-items-center py-3 my-4 border-top text-center">
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/logo_scy.png' %}"
-                     alt="Logo Evento">
-                <p>
-                </p>
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/banner_logos.png' %}"
-                     alt="Logo Evento">
+        </div>
+            <footer class=" align-items-center py-3 my-4 text-center">
+                <a href="https://cmisabel.ugr.es/scy"><img src="{% static 'img/home/scy.png' %}" class="scy-prompt"></a>
+                <img src="{% static 'img/home/footer.png' %}" class="fest-footer">
             </footer>
         </div>
     {% endblock content %}
     {% block customcss %}
         <style>
+    
+    .fest-header {
+        width: 100%;
+        margin-bottom: 5vh;
+        max-width: 700px;
+    }
     body {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;
         align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
         background-color: #FFF18D;
       }
     .container-sm{
-        padding: 15px;
-        background-color: #FFFFFF99;
         /*border-radius: 1em;*/
     }
 
@@ -180,6 +174,27 @@
 
     .form-check {
         padding-left: inherit;
+    }
+
+    .btn {
+        background-color: #3693c7;
+    }
+
+    .fest-points {
+        font-size: 32px;
+    }
+
+    .fest-footer {
+        width: 50%;
+    }
+
+    .scy-prompt {
+        width: 80%;
+        margin-bottom: 5vh;
+    }
+
+    .edit-icon {
+        margin-left: 8px;
     }
 
         </style>

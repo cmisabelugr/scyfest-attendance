@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
+<div class="d-md-flex h-md-100 align-items-center bg-fest">
+    <img src="{% static 'img/home/header.png' %}" class="fest-header">
+
     <div class="container-sm text-center">
-        <img class="img-fluid event_logo"
-             src="{% static 'img/logo_scyfest.png' %}"
-             alt="Logo Evento">
         <div class="card mb-3"
              style="margin-left:auto;
                     margin-right:auto;
@@ -28,19 +28,15 @@
                     <div class="card-body">
                         <h5 class="card-title" id="nameLabel">
                             <span id="nameLabelText">{{ ticket.name }}</span>
-                            <img id="editNameIcon" src="{% static 'img/edit-solid.svg' %}">
                         </h5>
-                        <h5 class="card-title">
-                            <input type="text" class="form-control" id="nameInput"/>
-                        </h5>
-                        <p class="card-text">
-                            Actualmente tienes {{ticket.get_points}} puntos
+                        <p class="card-text fest-points-pre mb-0 mt-4">
+                            Aquí tienes detalles sobre tus
                         </p>
-                        <h5 class="text-info">
+                        <h5 class="text-info fest-points mt-0">
                             {{ticket.get_points}} puntos <i class="fa-solid fa-pen-to-square"></i>
                         </h5>
                         
-                        <a href="{% url "ticket_home" ticket.qr_text %}" class="btn btn-primary">Volver</a>
+                        <a href="{% url "ticket_home" ticket.qr_text %}" class="btn btn-primary mt-3 mb-3">VOLVER</a>
                     </div>
                 </div>
             </div>
@@ -65,32 +61,29 @@
           </div>
             
         {% endfor %}
-            <footer class=" align-items-center py-3 my-4 border-top text-center">
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/logo_scy.png' %}"
-                     alt="Logo Evento">
-                <p>
-                </p>
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/banner_logos.png' %}"
-                     alt="Logo Evento">
+            <footer class=" align-items-center py-3 my-4 text-center">
+                <a href="https://cmisabel.ugr.es/scy"><img src="{% static 'img/home/scy.png' %}" class="scy-prompt"></a>
+                <img src="{% static 'img/home/footer.png' %}" class="fest-footer">
             </footer>
         </div>
+    </div>
     {% endblock content %}
     {% block customcss %}
         <style>
+        
+    .fest-header {
+        width: 100%;
+        margin-bottom: 5vh;
+        max-width: 700px;
+    }
     body {
         display: -ms-flexbox;
         display: flex;
         -ms-flex-align: center;
         align-items: center;
-        padding-top: 40px;
-        padding-bottom: 40px;
         background-color: #FFF18D;
       }
     .container-sm{
-        padding: 15px;
-        background-color: #FFFFFF99;
         /*border-radius: 1em;*/
     }
 
@@ -128,6 +121,26 @@
         padding-left: inherit;
     }
 
+    .btn {
+        background-color: #3693c7;
+    }
+
+    .fest-points {
+        font-size: 32px;
+    }
+
+    .fest-footer {
+        width: 50%;
+    }
+
+    .scy-prompt {
+        width: 80%;
+        margin-bottom: 5vh;
+    }
+
+    .edit-icon {
+        margin-left: 8px;
+    }
         </style>
         <!---<link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
     {% endblock customcss %}
