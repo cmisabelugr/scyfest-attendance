@@ -11,10 +11,10 @@ class TicketForm(forms.ModelForm):
 
 class TicketPureForm(forms.Form):
     name = forms.CharField()
-    has_tui = forms.BooleanField(initial=True)
-    from_college = forms.BooleanField(initial=False)
-    checkedin = forms.BooleanField(initial=True)
-    active = forms.BooleanField(initial=True)
-    profile_picture = forms.ImageField(allow_empty_file=True, required=False)
-    
+    has_tui = forms.BooleanField(initial=True, required=False)
+    from_college = forms.BooleanField(initial=False, required=False)
+    checkedin = forms.BooleanField(initial=True, required=False)
+    active = forms.BooleanField(initial=True, required=False)
+    profile_picture = forms.ImageField(required=False)
+
 

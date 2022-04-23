@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseForbidden
 
 
-from attendance.models import Ticket
+from attendance.models import Points, Ticket
 from attendance.views import ticket_home
 
 
@@ -50,6 +50,12 @@ def vote(req,poll_id):
             h.ticket = ticket
             h.poll = poll
             h.save()
+
+            p = Points()
+            p.ticket = ticket
+            p.value = 6
+            p.activity = "Votar en el concurso"
+            p.save()
 
             return redirect("ticket_home", ticket.qr_text)
     else:

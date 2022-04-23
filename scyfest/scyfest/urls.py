@@ -15,6 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from django.conf import settings #add this
+from django.conf.urls.static import static #add this
+
 from attendance.views import *
 from polls.views import *
 
@@ -28,5 +32,11 @@ urlpatterns = [
     path('door/scan/', door_scan, name="door_scan"),
     path('door/register/<str:qr_text>/', door_ticket, name="door_register"),
     path('ranking/', ranking_view, name='ranking_view'),
-    path('get_ranking/', get_ranking, name='ranking_set')
-]
+    path('get_ranking/', get_ranking, name='ranking_set'),
+    path('scan/barra/', scan_barra, name="scan_barra"),
+    path('scan/taller/', scan_taller, name="scan_taller"),
+    path('scan/mercado/', scan_mercado, name="scan_mercado"),
+    path('points/barra/<str:qr_text>/', points_barra, name="points_barra"),
+    path('points/taller/<str:qr_text>/', points_taller, name="points_taller"),
+    path('points/mercado/<str:qr_text>/', points_mercado, name="points_taller"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

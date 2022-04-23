@@ -5,59 +5,75 @@
         <img class="img-fluid event_logo"
              src="{% static 'img/logo_scyfest.png' %}"
              alt="Logo Evento">
-
-
-
-        <div class="form">
-            <form method="POST" action="{% url 'door_register' ticket.qr_text %}" enctype='multipart/form-data'>
+        <div class="container-sm">
+            <form method="POST"
+                  action="{% url 'door_register' ticket.qr_text %}"
+                  enctype='multipart/form-data'>
                 <div class="mb-3">
                     <label for="inputName" class="sr-only">Nombre</label>
-    <input type="text" name="{{form.name.html_name}}" {% if form.name.value %}value="{{form.name.value}}"{% endif %}
-      id="inputName" class="form-control" placeholder="Nombre" required autofocus>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="{{form.has_tui.html_name}}" id="inputTUI" {% if form.has_tui.value %}checked{% endif %} >
+                    <input type="text"
+                           name="{{ form.name.html_name }}"
+                           {% if form.name.value %}value="{{ form.name.value }}"{% endif %}
+                           id="inputName"
+                           class="form-control"
+                           placeholder="Nombre"
+                           required
+                           autofocus>
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ form.has_tui.html_name }}"
+                           id="inputTUI"
+                           {% if form.has_tui.value %}checked{% endif %}>
                     <label class="form-check-label" for="inputTUI">Es universitario (Tiene TUI)</label>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="{{form.from_college.html_name}}" id="inputCollege" {% if form.from_college.value %}checked{% endif %} >
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ form.from_college.html_name }}"
+                           id="inputCollege"
+                           {% if form.from_college.value %}checked{% endif %}>
                     <label class="form-check-label" for="inputCollege">Es Ysabelino</label>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="{{form.checkedin.html_name}}" id="inputChecked" {% if form.checkedin.value %}checked{% endif %} >
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ form.checkedin.html_name }}"
+                           id="inputChecked"
+                           {% if form.checkedin.value %}checked{% endif %}>
                     <label class="form-check-label" for="inputChecked">Dentro del SCYFest</label>
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" name="{{form.active.html_name}}" id="inputActive" {% if form.active.value %}checked{% endif %} >
+                </div>
+                <div class="form-check form-switch">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="{{ form.active.html_name }}"
+                           id="inputActive"
+                           {% if form.active.value %}checked{% endif %}>
                     <label class="form-check-label" for="inputActive">Pulsera activa</label>
-                  </div>
-                  <div class="form-control">
+                </div>
+                {% comment %} <div class="form-control">
                     <label for="inputPhoto" class="sr-only">Foto de perfil (recomendada)</label>
-                    <input type="file" name="{{formulario.profile_picture.html_name}}" id="inputPhoto" class="form-control" accept="image/*" capture placeholder="Foto de perfil (opcional)">
-                  </div>
-
-                  {% csrf_token %}
-                  <button type="submit" class="btn btn-primary">Guardar</button>
-
+                    <input type="file" name="{{formulario.profile_picture.html_name}}" id="inputPhoto" class="form-control" accept="image/*" placeholder="Foto de perfil (opcional)">
+                </div> {% endcomment %}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
-
-            
         </div>
-
-             <footer class=" align-items-center py-3 my-4 border-top text-center">
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/logo_scy.png' %}"
-                     alt="Logo Evento">
-                <p>
-                </p>
-                <img class="img-fluid event_logo"
-                     src="{% static 'img/banner_logos.png' %}"
-                     alt="Logo Evento">
-            </footer>
-        </div>
-    {% endblock content %}
-    {% block customcss %}
-        <style>
+        <footer class=" align-items-center py-3 my-4 border-top text-center">
+            <img class="img-fluid event_logo"
+                 src="{% static 'img/logo_scy.png' %}"
+                 alt="Logo Evento">
+            <p>
+            </p>
+            <img class="img-fluid event_logo"
+                 src="{% static 'img/banner_logos.png' %}"
+                 alt="Logo Evento">
+        </footer>
+    </div>
+{% endblock content %}
+{% block customcss %}
+    <style>
     body {
         display: -ms-flexbox;
         display: flex;
@@ -105,13 +121,15 @@
 
     .form-check {
         padding-left: inherit;
+        float: inherit;
+    }
+    .form-check .form-check-input {
+        padding-left: inherit;
+        float: inherit;
     }
 
-        </style>
-        <!---<link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
-    {% endblock customcss %}
-    {% block customjs %}
-        <script id="js-data" type="application/json">{"api_url": "/changename/{{ticket.qr_text}}/", "csrf" : "{{ csrf_token }}"}</script>
-        <script src="{% static 'js/axios.min.js' %}"></script>
-        <script src="{% static "js/tickets.js" %}"></script>
-    {% endblock customjs %}
+    </style>
+    <!---<link rel="stylesheet" href="{% static 'css/login.css' %}"> -->
+{% endblock customcss %}
+{% block customjs %}
+{% endblock customjs %}
