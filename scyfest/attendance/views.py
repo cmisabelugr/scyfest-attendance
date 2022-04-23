@@ -111,13 +111,14 @@ def door_ticket(req, qr_text):
                 t.from_college = f.cleaned_data['from_college']
                 t.checkedin = f.cleaned_data['checkedin']
                 t.active = f.cleaned_data['active']
-                t.profile_picture = f.cleaned_data['profile_picture']
+                if f.cleaned_data['profile_picture']:
+                    t.profile_picture = f.cleaned_data['profile_picture']
                 t.save()
 
                 return redirect("door_scan")
             else:
                 print("Formulario inválido")
-                print(f)
+                print(f.errors)
                 context = {
                 'ticket' : t,
                 'form' : f,
@@ -131,7 +132,8 @@ def door_ticket(req, qr_text):
                 "has_tui" : t.has_tui,
                 "from_college": t.from_college,
                 "checkedin" : t.checkedin,
-                "active" : t.active
+                "active" : t.active,
+                "profile_picture" : t.profile_picture
             }
             f = TicketPureForm(data)
             context = {
@@ -174,3 +176,57 @@ def get_ranking(req):
         lista = sorted(lista, reverse=True, key = lambda i: i['puntos'])
 
     return JsonResponse(lista, safe=False)
+
+@login_required
+def scan_barra(req):
+    return render(req, "barra_scan.html")
+
+@login_required
+def scan_taller(req):
+    return render(req, "taller_scan.html")
+
+@login_required
+def scan_mercado(req):
+    return render(req, "mercado_scan.html")
+
+def points_barra(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        p = Points()
+        p.ticket = t
+        p.value = 1
+        p.activity = "Barra"
+        p.save()
+
+        return redirect("scan_barra")
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
+
+def points_taller(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        p = Points()
+        p.ticket = t
+        p.value = 3
+        p.activity = "Taller"
+        p.save()
+
+        return redirect("scan_taller")
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
+
+def points_mercado(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        p = Points()
+        p.ticket = t
+        p.value = 4
+        p.activity = "Mercado"
+        p.save()
+
+        return redirect("scan_mercado")
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
