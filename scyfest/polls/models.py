@@ -1,3 +1,5 @@
+from hashlib import blake2b
+from tokenize import blank_re
 from django.db import models
 
 # Create your models here.
@@ -53,6 +55,7 @@ class Poll(models.Model):
 class Option(models.Model):
     option_text = models.TextField(verbose_name="Texto")
     poll = models.ForeignKey(to=Poll, on_delete=models.CASCADE)
+    image = models.ImageField(verbose_name="Option Image", blank=True)
 
     def num_votes(self):
         num = 0

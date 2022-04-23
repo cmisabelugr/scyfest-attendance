@@ -4,6 +4,7 @@ from django.http import HttpResponseForbidden
 
 
 from attendance.models import Ticket
+from attendance.views import ticket_home
 
 
 from .models import Poll, Vote, HasVoted, Option
@@ -27,12 +28,13 @@ def polls_list(req):
 def vote(req,poll_id):
     poll = Poll.objects.filter(pk=poll_id).first()
 
-    ticket=req.session.get("ticket", None)
+    ticket_id=req.session.get("ticket_id", None)
+    ticket = Ticket.objects.get(id=ticket_id)
     if not ticket:
         return HttpResponseForbidden()
 
     if not poll or not poll.user_can_vote(ticket):
-        return redirect('polls_list')
+        return redirect("ticket_home", ticket.qr_text)
 
     if req.method == 'POST':
         form = VoteForm(poll, req.POST)
@@ -49,7 +51,8 @@ def vote(req,poll_id):
             h.poll = poll
             h.save()
 
-            return redirect('polls_list')
+            return redirect("ticket_home", ticket.qr_text)
     else:
+        return redirect("ticket_home", ticket.qr_text)
         form = VoteForm(poll)
         return render(req, 'vote.html', {'form':form, 'poll':poll})

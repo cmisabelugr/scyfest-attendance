@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-sm text-center">
+    <img class="img-fluid event_logo"
+         src="{% static 'img/logo_scyfest.png' %}"
+         alt="Logo Evento">
+   
+         <h1 class="h3 mb-3 font-weight-normal">Entrada no activada</h1>
+    <footer class=" align-items-center py-3 my-4 border-top text-center">
+        <img class="img-fluid event_logo"
+             src="{% static 'img/logo_scy.png' %}"
+             alt="Logo Evento">
+        <p>
+        </p>
+        <img class="img-fluid event_logo"
+             src="{% static 'img/banner_logos.png' %}"
+             alt="Logo Evento">
+    </footer>
+</div>
+{% endblock content %}
+{% block customcss %}
+<style>
+body {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #c9302c;
+  }
+.container-sm{
+    padding: 15px;
+    background-color: #FFFFFF99;
+    /*border-radius: 1em;*/
+}
+
+.event_logo{
+    height : 100%;
+}
+
+@media (min-width: 768px) {
+    
+    .event_logo{
+        height : 5em;
+    } 
+}
+
+
+</style>
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock customcss %}
+

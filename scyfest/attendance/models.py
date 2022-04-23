@@ -1,8 +1,12 @@
+import random, string
+
 from django.db import models
 
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.db.models import Sum
+from django.urls import reverse
 
 def get_random_string():
     # choose from all lowercase letter
@@ -14,11 +18,11 @@ def get_random_string():
 
 class Ticket(models.Model):
 
-    name = models.TextField(_("Person name"), blank=True)
-    has_tui = models.BooleanField(_("Has TUI?"), blank= False, default=True)
-    from_college = models.BooleanField(_("Is from Ysabel?"), default = False)
-    checkedin = models.BooleanField(_("Is inside the building?"), default = False)
-    active = models.BooleanField(_("This ticket is active?"), default = False)
+    name = models.TextField(verbose_name=_("Person name"), blank=True)
+    has_tui = models.BooleanField(verbose_name=_("Has TUI?"), blank= False, default=True)
+    from_college = models.BooleanField(verbose_name=_("Is from Ysabel?"), default = False)
+    checkedin = models.BooleanField(verbose_name=_("Is inside the building?"), default = False)
+    active = models.BooleanField(verbose_name=_("This ticket is active?"), default = False)
     qr_text = models.TextField(verbose_name=_("QR Text label"), blank=False, default=get_random_string, unique=True)
     profile_picture = models.ImageField(verbose_name="Profile picture", blank=True)
 
@@ -63,7 +67,7 @@ class Points(models.Model):
         verbose_name_plural = "puntos"
 
     def __str__(self):
-        return (str(self.valor) + " points to " + self.ticket + " by " + self.activity) 
+        return (str(self.value) + " points to " + str(self.ticket) + " by " + self.activity) 
 
     def get_absolute_url(self):
         return reverse("puntos_detail", kwargs={"pk": self.pk})

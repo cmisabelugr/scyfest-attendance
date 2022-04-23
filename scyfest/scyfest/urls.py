@@ -16,8 +16,17 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from attendance.views import *
+from polls.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', test_view, name="test_view")
+    path('test/', test_view, name="test_view"),
+    path('t/<str:qr_text>/', ticket_home, name="ticket_home"),
+    path('ticket_history/<str:qr_text>/', ticket_history, name="ticket_history"),
+    path('vote/<int:poll_id>/', vote, name="vote_post"),
+    path('changename/<str:qr_text>/<str:new_name>/', change_name, name="change_name"),
+    path('door/scan/', door_scan, name="door_scan"),
+    path('door/register/<str:qr_text>/', door_ticket, name="door_register"),
+    path('ranking/', ranking_view, name='ranking_view'),
+    path('get_ranking/', get_ranking, name='ranking_set')
 ]

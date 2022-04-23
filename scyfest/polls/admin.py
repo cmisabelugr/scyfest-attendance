@@ -99,3 +99,8 @@ class PollAdmin(admin.ModelAdmin):
                 nuevaOpcion.save()
             self.message_user(request, "Duplicada con éxito", messages.SUCCESS)
     duplicate_poll.short_description = "Duplicar encuesta"
+
+
+admin.site.register(Poll, PollAdmin)
+admin.site.register(Option)
+admin.site.register(HasVoted)

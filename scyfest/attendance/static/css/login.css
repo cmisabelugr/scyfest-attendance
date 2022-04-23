@@ -11,6 +11,7 @@ body {
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #FFF18D;
+  font-family: 'Barlow';
 }
 
 button {
@@ -24,7 +25,7 @@ button {
   margin: auto;
   margin-top: 0;
   background-color: #FFFFFF99;
-  border-radius: 1em;
+  /*border-radius: 1em;*/
 }
 .form-signin .checkbox {
   font-weight: 400;
