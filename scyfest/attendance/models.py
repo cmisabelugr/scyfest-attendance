@@ -53,6 +53,11 @@ class Ticket(models.Model):
         p = self.points_set.aggregate(Sum('value'))['value__sum']
         if p is None: p = 0
         return p
+    
+    def get_boothpoints(self):
+        p = self.boothpoints_set.aggregate(Sum('value'))['value__sum']
+        if p is None: p = 0
+        return p
 
 
 class Points(models.Model):
@@ -71,6 +76,23 @@ class Points(models.Model):
 
     def get_absolute_url(self):
         return reverse("puntos_detail", kwargs={"pk": self.pk})
+    
+class BoothPoints(models.Model):
+
+    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
+    value = models.IntegerField(verbose_name="Numero de puntos")
+    activity = models.TextField(verbose_name="Fotomaton")
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "puntos_fotomaton"
+        verbose_name_plural = "puntos_fotomaton"
+
+    def __str__(self):
+        return (str(self.value) + " photobooth points to " + str(self.ticket) + " by " + self.activity) 
+
+    def get_absolute_url(self):
+        return reverse("photopuntos_detail", kwargs={"pk": self.pk})
 
 from io import BytesIO
 from django.core.files import File
@@ -137,3 +159,18 @@ def make_profile(image):
 
     return thumbnail
 
+class Fotomaton(models.Model):
+
+    picture = models.ImageField(verbose_name="Profile picture", blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    view_counter = models.IntegerField(verbose_name="Veces mostrada", )
+
+    class Meta:
+        verbose_name = _("Fotomaton")
+        verbose_name_plural = _("Fotomatons")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("Fotomaton_detail", kwargs={"pk": self.pk})

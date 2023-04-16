@@ -32,3 +32,4 @@ class TicketAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Ticket, TicketAdmin)
 admin.site.register(Points)
+admin.site.register(BoothPoints)

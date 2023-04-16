@@ -39,11 +39,15 @@
                         <h5 class="text-info fest-points mt-0">
                             {{ticket.get_points}} puntos <i class="fa-solid fa-pen-to-square"></i>
                         </h5>
+                        <h5 class="text-info fest-points mt-0">
+                            {{ticket.get_boothpoints}} tickets de fotomatón <i class="fa-solid fa-pen-to-square"></i>
+                        </h5>
                         <a href="{% url "ticket_history" ticket.qr_text %}" class="btn btn-primary mt-3 mb-3">VER HISTÓRICO</a>
                     </div>
                 </div>
             </div>
         </div>
+        <!--
         <div class="card mb-3 text-center"
              style="margin-left:auto;
                     margin-right:auto;
@@ -108,15 +112,17 @@
                         </div>
                     {% endif %}
                 {% else %}
+                
                     <div class="card-body">
                         <h5 class="card-title">Actualmente no hay votaciones abiertas</h5>
                         <p class="card-text">
                             Las votaciones se abrirán cuando acaben todas las bandas de tocar.
                         </p>
                     </div>
-                {% endif %}
+                    {% endif %}
+                </div>
             </div>
-        </div>
+        -->
             <footer class=" align-items-center py-3 my-4 text-center">
                 <a href="https://cmisabel.ugr.es/scy"><img src="{% static 'img/home/scy.png' %}" class="scy-prompt"></a>
                 <img src="{% static 'img/home/footer.png' %}" class="fest-footer">
@@ -136,7 +142,7 @@
         display: flex;
         -ms-flex-align: center;
         align-items: center;
-        background-color: #FFF18D;
+        background-color: #FC6F78;
       }
     .container-sm{
         /*border-radius: 1em;*/
