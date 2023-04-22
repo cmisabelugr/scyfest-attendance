@@ -11,13 +11,13 @@ ON_PAGE_INDEX = 0
 UNDERNEATH = False
 
 def new_content(qrcodes):
-    fpdf = FPDF(orientation="landscape", format=(190,250))
+    fpdf = FPDF(orientation="landscape", format=(52,62))
     fpdf.add_page()
 
     for (i, qr_text) in enumerate(qrcodes):
         img = qrcode.make("https://fest.ruralinfra.com/t/{}".format(qr_text))
-        for j in range(3):
-            fpdf.image(img.get_image(), x=60+j*70, y=i*19, h=19, w=19)    
+        #for j in range(3):
+        fpdf.image(img.get_image(), x=19, y=14, h=24, w=24)    
 
     reader = PdfReader(fdata=bytes(fpdf.output()))
     return reader.pages[0]

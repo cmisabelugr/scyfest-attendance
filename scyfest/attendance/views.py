@@ -2,13 +2,17 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
+from django.http import FileResponse
+from pdfrw import PdfWriter, PdfReader
+from io import BytesIO
 
 from polls.forms import VoteForm
 
 
 from .forms import TicketForm, TicketPureForm
-from .models import Ticket, Points
+from .models import Ticket, Points, BoothPoints
 from polls.models import Poll
+from .ticket_creator import *
 
 # Create your views here.
 
@@ -92,7 +96,8 @@ def change_name(req, qr_text, new_name):
 
 @login_required
 def door_scan(req):
-    return render(req, "door_scan.html")
+    num_active = Ticket.objects.filter(active=True, checkedin=True).count()
+    return render(req, "door_scan.html", context={"num_active":num_active})
 
 @login_required
 def door_ticket(req, qr_text):
@@ -132,13 +137,14 @@ def door_ticket(req, qr_text):
                 "has_tui" : t.has_tui,
                 "from_college": t.from_college,
                 "checkedin" : t.checkedin,
-                "active" : t.active,
+                "active" : True,
                 "profile_picture" : t.profile_picture
             }
             f = TicketPureForm(data)
             context = {
                 'ticket' : t,
                 'form' : f,
+                'booth_points' : t.get_boothpoints()
             }
             #print(f)
             print("Venga vamos")
@@ -227,6 +233,57 @@ def points_mercado(req, qr_text):
         p.save()
 
         return redirect("scan_mercado")
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
+    
+def generate_one_ticket(req):
+    t = Ticket()
+    t.save()
+    p = BoothPoints()
+    p.ticket = t
+    p.value = 1
+    p.activity = "fotomaton"
+    p.save()
+    result = generate_ticket([t.qr_text])
+    return FileResponse(result, as_attachment=True, filename='attempt1.pdf')
+
+def get_booth_points(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        t.get_boothpoints()
+
+        return HttpResponse(t.get_boothpoints())
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
+
+def substract_booth_point(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        p = BoothPoints()
+        p.ticket = t
+        p.value = -1
+        p.activity = "ticket_fotomaton"
+        p.save()
+
+        return HttpResponse("Good")
+    except Exception as e:
+        print(e)
+        return HttpResponseBadRequest()
+
+
+@login_required
+def add_booth_point(req, qr_text):
+    try:
+        t = Ticket.objects.get(qr_text=qr_text)
+        p = BoothPoints()
+        p.ticket = t
+        p.value = 1
+        p.activity = "ticket_fotomaton"
+        p.save()
+
+        return redirect("door_register", qr_text)
     except Exception as e:
         print(e)
         return HttpResponseBadRequest()

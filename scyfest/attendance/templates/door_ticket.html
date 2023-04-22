@@ -50,7 +50,7 @@
                            name="{{ form.active.html_name }}"
                            id="inputActive"
                            {% if form.active.value %}checked{% endif %}>
-                    <label class="form-check-label" for="inputActive">Pulsera activa</label>
+                    <label class="form-check-label" for="inputActive">Codigo activo</label>
                 </div>
                 {% comment %} <div class="form-control">
                     <label for="inputPhoto" class="sr-only">Foto de perfil (recomendada)</label>
@@ -59,6 +59,8 @@
                 {% csrf_token %}
                 <button type="submit" class="btn btn-primary">Guardar</button>
             </form>
+            <h3>Tiene {{booth_points}} puntos de fotomaton</h3>
+            <a href="/booth/{{ticket.qr_text}}/add"><button type="submit" class="btn btn-success">Añadir ticket de fotomatón</button></a>
         </div>
         <footer class=" align-items-center py-3 my-4 border-top text-center">
             <img class="img-fluid event_logo"
