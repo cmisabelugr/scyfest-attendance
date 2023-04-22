@@ -156,9 +156,9 @@ class ControlAccesos(qtw.QWidget):
 
             # Start position
             os.popen("rm /tmp/ticket.pdf").read()
-            os.popen("curl localhost:8000/generate_one --output /tmp/ticket.pdf").read()
+            os.popen("curl https://fest.ruralinfra.com/generate_one --output /tmp/ticket.pdf").read()
             os.popen("pdf2ps /tmp/ticket.pdf /tmp/ticket.ps").read()
-            os.popen("lp -d QL-600 /tmp/ticket.ps").read()
+            os.popen("lp -d QL600 /tmp/ticket.ps").read()
                 
 
         return super().eventFilter(obj, event)

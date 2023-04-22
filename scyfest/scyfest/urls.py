@@ -43,4 +43,6 @@ urlpatterns = [
     path('booth/<str:qr_text>/get', get_booth_points, name="get_booth_points"),
     path('booth/<str:qr_text>/add', add_booth_point, name="add_booth_point"),
     path('booth/<str:qr_text>/substract', substract_booth_point, name="substract_booth_point"),
+    path('', ranking_view, name="placeholder"),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
